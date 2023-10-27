@@ -1,0 +1,19 @@
+{
+  "name": "calhacks",
+  "version": "1.0.0",
+  "description": "calhacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeanShin/CalHacks.git"
+  },
+  "author": "UOP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeanShin/CalHacks/issues"
+  },
+  "homepage": "https://github.com/DeanShin/CalHacks#readme"
+}
