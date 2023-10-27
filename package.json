@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/DeanShin/CalHacks/issues"
   },
-  "homepage": "https://github.com/DeanShin/CalHacks#readme"
+  "homepage": "https://github.com/DeanShin/CalHacks#readme",
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.15"
+  }
 }
