@@ -117,9 +117,6 @@ def get_bound_and_file_dict(
     files = os.listdir(output_dir)
     for lower, upper in bounds:
         for f_ in files:
-            print()
-            print(f"{f_=}")
-            print()
             if str(lower) in f_ and str(upper) in f_:
                 res[(lower, upper)] = os.path.join(output_dir, f_)
     return res
@@ -132,13 +129,28 @@ def zip_output_folder(folder_to_archive=OUTPUT_DIR) -> None:
         os.mkdir(hume_dir)
 
     shutil.make_archive(hume_dir_name, "zip", folder_to_archive)
-    shutil.move(f"{hume_dir_name}.zip", hume_dir)
-
+    try:
+        shutil.move(f"{hume_dir_name}.zip", hume_dir)
+    except Exception as e:
+        print()
+        print(e)
+        print()
 
 if __name__ == "__main__":
+    from pprint import pprint
+
     name = "Hume-input-video.mp4"
     res = multithreaded_segmenting_wrapper(name)
-    zip_output_folder()
 
-    from pprint import pprint
+    print()
+    print("======================================")
     pprint(res)
+    print("======================================")
+    print("^^^ Raw Data that will be used for our future analysis")
+    print()
+
+    print("======================================")
+    print(f"Zipping out from {OUTPUT_DIR=} to {current_directory}/Hume-input/hume-input.zip")
+    zip_output_folder()
+    print("======================================")
+
