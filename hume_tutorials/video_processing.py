@@ -121,10 +121,20 @@ def get_bound_and_file_dict(
     return res
 
 
+def zip_output_folder(folder_to_archive=OUTPUT_DIR) -> None:
+    hume_dir_name = "hume-input"
+    hume_dir = os.path.join(current_directory, hume_dir_name)
+    if not os.path.exists(hume_dir):
+        os.mkdir(hume_dir)
+
+    shutil.make_archive(hume_dir_name, "zip", folder_to_archive)
+    shutil.move(f"{hume_dir_name}.zip", hume_dir)
+
+
 if __name__ == "__main__":
     name = "Hume-input-video.mp4"
     res = multithreaded_segmenting_wrapper(name)
+    zip_output_folder()
 
     from pprint import pprint
-
     pprint(res)
