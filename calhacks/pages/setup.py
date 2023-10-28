@@ -1,13 +1,17 @@
 import reflex as rx
 
+from calhacks.state import State
+
+
+class SetupState(State):
+    def on_pressed_ready(self):
+        return rx.call_script("navigator.getUserMedia({ video: true, audio: true }, "
+                              "() => { window.location.href = '/' }, "
+                              "() => { window.location.href = '/ })")
 
 @rx.page()
 def setup():
     return rx.grid(
-        rx.script("""
-             navigator.permissions.query({name: 'microphone'})
-                    .then(() => navigator.permissions.query({name: 'camera'}))
-        """),
         rx.heading("How it works", size="xl", text_align="center"),
         rx.grid(
             rx.card(
@@ -37,14 +41,11 @@ def setup():
             padding="16px"
         ),
         rx.center(
-            rx.link(
-                rx.button(
-                    rx.text("Get Started"),
-                    width="200px",
-                ),
-                href="/",
-                button=True
-            )
+            rx.button(
+                rx.text("Get Started"),
+                width="200px",
+                on_click=lambda : SetupState.on_pressed_ready
+            ),
         ),
         grid_template_rows = "200px auto 200px",
         align_items = "center",
