@@ -64,7 +64,8 @@ def check_job():
     print(status)
 
 
-multi_test_method()
-#single_test_method()
-#main()
-#check_job()
+if __name__ == "__main__":
+    multi_test_method()
+    #single_test_method()
+    #main()
+    #check_job()
