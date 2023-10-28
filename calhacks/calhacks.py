@@ -10,6 +10,4 @@ import reflex as rx
 
 # Create the app and compile it.
 app = rx.App(style=styles.base_style)
-app.add_page(index, route='/')
-app.add_page(setup, route='/setup')
 app.compile()
