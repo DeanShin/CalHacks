@@ -4,7 +4,16 @@ from calhacks.state import State
 
 
 class SetupState(State):
+    show_empty_context_error = False
+
+    def update_interview_context(self, s):
+        self.show_empty_context_error = False
+        self.interview_context = s
+
     def on_pressed_ready(self):
+        if len(self.interview_context) == 0:
+            self.show_empty_context_error = True
+            return
         return rx.call_script("navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(() => { window.location.href = '/quiz' })")
 
 
@@ -40,13 +49,26 @@ def setup():
             padding="16px"
         ),
         rx.center(
+            rx.box(
+                rx.text(
+                    "Interview context",
+                ),
+                rx.text_area(
+                    on_change=SetupState.update_interview_context,
+                    placeholder="I am applying for a position in Software Engineering as a new grad",
+                    width="400px",
+                    is_invalid=SetupState.show_empty_context_error
+                )
+            )
+        ),
+        rx.center(
             rx.button(
                 rx.text("Get Started"),
                 width="200px",
                 on_click=SetupState.on_pressed_ready
             ),
         ),
-        grid_template_rows = "200px auto 200px",
+        grid_template_rows = "200px auto 200px 100px",
         align_items = "center",
         justify_content = "center",
         margin = "32px",
