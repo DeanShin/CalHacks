@@ -1,6 +1,62 @@
 import json
 from pprint import pprint
 
+POSITIVE_EMOTIONS = {
+    "Admiration": True,
+    "Adoration": True,
+    "Aesthetic Appreciation": True,
+    "Amusement": True,
+    "Awe": True,
+    "Calmness": True,
+    "Concentration": True,
+    "Contentment": True,
+    "Craving": True,
+    "Desire": True,
+    "Determination": True,
+    "Ecstasy": True,
+    "Enthusiasm": True,
+    "Entrancement": True,
+    "Excitement": True,
+    "Gratitude": True,
+    "Interest": True,
+    "Joy": True,
+    "Love": True,
+    "Nostalgia": True,
+    "Realization": True,
+    "Relief": True,
+    "Romance": True,
+    "Satisfaction": True,
+    "Surprise (positive)": True,
+    "Sympathy": True,
+    "Triumph": True,
+}
+
+NEGATIVE_EMOTIONS = {
+    "Anger": True,
+    "Annoyance": True,
+    "Anxiety": True,
+    "Awkwardness": True,
+    "Boredom": True,
+    "Confusion": True,
+    "Contempt": True,
+    "Disappointment": True,
+    "Disgust": True,
+    "Distress": True,
+    "Doubt": True,
+    "Embarrassment": True,
+    "Empathic Pain": True,
+    "Envy": True,
+    "Fear": True,
+    "Guilt": True,
+    "Horror": True,
+    "Pain": True,
+    "Sadness": True,
+    "Sarcasm": True,
+    "Shame": True,
+    "Surprise (negative)": True,
+    "Tiredness": True,
+}
+
 
 class Hume_Data:
     def __init__(self, path_to_json):
@@ -9,13 +65,18 @@ class Hume_Data:
 
     def wrapper(self):
         data = self.get_average_emotions()
-        pprint(self.get_top_n_emotions(data))
+        negative_averages = self.get_top_n_emotions(data, NEGATIVE_EMOTIONS)
+        positive_averages = self.get_top_n_emotions(data, POSITIVE_EMOTIONS)
+        pprint(negative_averages)
+        pprint(positive_averages)
 
     def read_json(self, path_to_json):
         with open(path_to_json) as f:
             return json.loads(f.read())[0]["results"]["predictions"]
 
-    def get_top_n_emotions(self, parsed_data: dict, top_n=3) -> dict:
+    def get_top_n_emotions(
+        self, parsed_data: dict, emotion_type: dict, top_n=3
+    ) -> dict:
         """Parses segments of videos and returns a string of their top N emotions
 
         Parameters
@@ -41,16 +102,23 @@ class Hume_Data:
                                         ('Joy', 0.6116871337095896),
                                         ('Interest', 0.49974467356999713)]}
         """
+        pprint(emotion_type)
         res = {}
         for k_file_segment, v_dict in parsed_data.items():
+            v_dict_copy = {}
+            for k_emotion_name, v_average in v_dict.items():
+                if emotion_type.get(k_emotion_name, None):
+                    v_dict_copy[k_emotion_name] = v_average
+
             sorted_items = sorted(
-                v_dict.items(), key=lambda item: item[1], reverse=True
+                v_dict_copy.items(), key=lambda item: item[1], reverse=True
             )
             top_emotions = sorted_items[:top_n]
             res[k_file_segment] = top_emotions
         return res
 
     def get_average_emotions(self) -> dict:
+        """Emotion type takes in either POSITIVE_EMOTIONS or NEGATIVE_EMOTIONS"""
         file_data = {}
 
         for idx, file in enumerate(self.raw_data):
@@ -86,5 +154,6 @@ class Hume_Data:
 
 
 if __name__ == "__main__":
-    obj = Hume_Data("Sample-Outputs/sample-audio-and-face.json")
+    # obj = Hume_Data("Sample-Outputs/sample-audio-and-face.json")
+    obj = Hume_Data("predictions.json")
     obj.wrapper()
