@@ -1,18 +1,29 @@
-"""The home page of the app."""
-
-from calhacks import styles
-from calhacks.templates import template
+"""The dashboard page."""
 
 import reflex as rx
 
+_debug = True
+_debug_style='2px solid red' if _debug else ''
 
-@template(route="/", title="Home", image="/github.svg")
+def top() -> rx.Component:
+    return rx.container(
+        rx.vstack(
+            rx.heading('Project Name TBD'),
+            rx.text('by Memory Leeks, Calhacks 10.0'),
+            rx.text('Add quick project description'),
+            border=_debug_style
+        ),
+        rx.link(
+            rx.button('Get Started'),
+            href='http://localhost:3000/setup'
+        ),
+        bg='white',
+        border=_debug_style,
+        width='100vw',
+        height='100vh'
+    )
+
 def index() -> rx.Component:
-    """The home page.
-
-    Returns:
-        The UI for the home page.
-    """
-    with open("README.md", encoding="utf-8") as readme:
-        content = readme.read()
-    return rx.markdown(content, component_map=styles.markdown_style)
+    return rx.container(
+        top()
+    )
