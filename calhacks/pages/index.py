@@ -15,7 +15,7 @@ def top() -> rx.Component:
         ),
         rx.link(
             rx.button('Get Started'),
-            href='http://localhost:3000/get-started'
+            href='http://localhost:3000/setup'
         ),
         bg='white',
         border=_debug_style,
@@ -23,6 +23,7 @@ def top() -> rx.Component:
         height='100vh'
     )
 
+@rx.page(route="/")
 def index() -> rx.Component:
     return rx.container(
         top()
