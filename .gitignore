@@ -1,5 +1,7 @@
 *.mp4
 *.mp3
+*.zip
+.DS_STORE
 
 *.db
 *.py[cod]
