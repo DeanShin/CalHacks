@@ -13,37 +13,39 @@ class QuizState(State):
             window.chunks = []
             navigator.mediaDevices
                 .getUserMedia(
-                  // constraints - only audio needed for this app
                   {
                     audio: true,
                     video: true
                   },
                 )
                 .then(stream => {
-                    window.mediaRecorder = new MediaRecorder(stream)
-                    window.mediaRecorder.start();
-                    console.log(window.mediaRecorder.state);
+                    window.mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm'})
                     window.mediaRecorder.ondataavailable = (e) => {
-                        window.chunks.push(e.data);
-                        console.log(window.chunks);
+                        const url = URL.createObjectURL(e.data);
+                        console.log(url)
+                        
+                        // Create a link element
+                        const link = document.createElement("a");
+                        
+                        // Set link's href to point to the Blob URL
+                        link.href = url;
+                        link.download = 'video.webm';
+                        
+                        link.dispatchEvent(
+                            new MouseEvent('click', { 
+                                bubbles: true, 
+                                cancelable: true, 
+                                view: window 
+                            })
+                        );
                     };
+                    window.mediaRecorder.start();
                 })
         """)
 
     def stop_recording(self):
         return rx.call_script(
             """
-                window.mediaRecorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: "video/x-matroska;codecs=avc1,opus" });
-                    console.log(blob)
-                    const fileReader = new FileReader();
-                    fileReader.onloadend = () => {
-                        console.log("load end")
-                        console.log(fileReader.result)
-                        window.result = fileReader.result
-                    }
-                    fileReader.readAsArrayBuffer(blob);
-                }
                 window.mediaRecorder.stop()
             """
         )
@@ -76,12 +78,8 @@ def quiz():
         ),
         rx.center(
             rx.button(
-                "Finish question",
+                "Next question",
                 on_click=QuizState.stop_recording,
-            ),
-            rx.button(
-                "Process recording",
-                on_click=QuizState.next_question,
             )
         ),
         rx.box(),
