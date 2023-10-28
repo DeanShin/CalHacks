@@ -1,0 +1,20 @@
+1. Describe what time complexity is and why it is important in algorithm design.
+2. Explain the concept of Big O notation and its significance in evaluating algorithm efficiency.
+3. What are the time complexities of the following algorithms: bubble sort, binary search, and insertion sort?
+4. Compare and contrast the time complexities of bubble sort and quicksort. Which one would you choose for sorting a large dataset and why?
+5. Given an unsorted array of integers, design an algorithm to find the pair of numbers that sum up to a specific target value. What is the time complexity of your solution?
+6. Tell me about a challenging situation you faced in a team project. How did you handle it?
+7. Describe a time when you had to work on a project with a tight deadline. What measures did you take to ensure its successful completion?
+8. How do you prioritize your tasks and manage your time effectively?
+9. Give an example of a time when you disagreed with a team member's approach. How did you handle the situation and reach a resolution?
+10. Describe a project where you had to work independently without much guidance. How did you stay motivated and overcome challenges?1. Explain the concept of time complexity in algorithms and its importance in analyzing algorithm efficiency.
+2. Compare and contrast the time complexities of an iterative and recursive implementation of the Fibonacci sequence.
+3. What is the time complexity of the merge sort algorithm? Explain how it works and why it is efficient.
+4. How does the time complexity of searching in a binary search tree differ from searching in a regular array? Explain the reasons behind the difference.
+5. What is the advantage of using a hash table in terms of time complexity? Discuss the time complexities of insert, search, and delete operations in a hash table.
+
+6. Describe a situation where you had to handle a difficult team member or coworker. How did you handle it, and what was the outcome?
+7. Tell me about a time when you faced a complex problem that required a creative approach to solve. How did you approach the problem, and what was the result?
+8. Describe a time when you had to quickly adapt to a change in project requirements or priorities. How did you handle the situation, and how did it affect the project outcome?
+9. Discuss a situation where you had to work under pressure to meet a tight deadline. How did you manage your time and tasks to ensure successful completion?
+10. Tell me about a time when you had to collaborate with a diverse team to achieve a common goal. How did you handle individual differences and ensure effective communication and collaboration?

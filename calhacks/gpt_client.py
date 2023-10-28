@@ -1,6 +1,7 @@
 import os
 import asyncio
 import openai
+import pickle
 
 
 if not os.environ.get("OPENAI_API_KEY"):
@@ -8,7 +9,7 @@ if not os.environ.get("OPENAI_API_KEY"):
 
 
 class ChatGPT:
-    async def __init__(self, user_context: str):
+    def __init__(self, user_context: str):
         """
         Parameters
         ----------
@@ -21,12 +22,13 @@ class ChatGPT:
         self.questions = list[str]
 
     async def _generate_questions(self) -> dict:
+        print('\t-generating questions')
         prompt = f"""Generate me a list of 10 technical interview questions.
                     5 of which will focus on {self.user_context}. The remaining 5 will be behavioural.
                     Just output the list numbered 1-10. Do not include labels. Do not a response verifying my message"""
 
         # Prompt chatgpt
-        response = await openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {
@@ -40,17 +42,23 @@ class ChatGPT:
         return response
 
     def _parse_questions(self, questions_raw: dict) -> list[str]:
+        print('\t-parsing questions')
         raw = questions_raw["choices"][0]["message"]["content"]
+        #with open('questions_raw.txt', 'a+') as f:
+        #    f.write(raw)
+        #    f.write("\n")
+
         return raw.split("\n")
 
     async def set_questions(self) -> None:
+        print('\t-set questions')
         questions = await self._generate_questions()
         self.questions = self._parse_questions(questions)
 
 
+async def main():
+    client = ChatGPT("algorithms and their time complexities")
+    questions = await client.set_questions()
+    print(client.questions)
 if __name__ == "__main__":
-    async def main():
-        client = ChatGPT("algorithms and their time complexities")
-        await client.set_questions()
-
     asyncio.run(main())
