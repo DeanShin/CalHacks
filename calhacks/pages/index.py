@@ -5,7 +5,7 @@ import reflex as rx
 _debug = True
 _debug_style='2px solid red' if _debug else ''
 
-def index() -> rx.Component:
+def top() -> rx.Component:
     return rx.container(
         rx.vstack(
             rx.heading('Project Name TBD'),
@@ -17,5 +17,13 @@ def index() -> rx.Component:
             rx.button('Get Started'),
             href='http://localhost:3000/get-started'
         ),
-        border=_debug_style
+        bg='white',
+        border=_debug_style,
+        width='100vw',
+        height='100vh'
+    )
+
+def index() -> rx.Component:
+    return rx.container(
+        top()
     )
