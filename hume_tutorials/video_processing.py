@@ -26,20 +26,19 @@ class Video:
     def __init__(self, path: str) -> None:
         self.video = VideoFileClip(path)
         self.path = path
+        self.duration = self.video.duration
 
     def get_bounds(self, video_seg_len=5) -> list[tuple]:
-        duration = self.video.duration
-
         lower = 0
         upper = video_seg_len
         bounds: list[tuple] = []
-        while upper < duration:
+        while upper < self.duration:
             bounds.append((lower, upper))
             lower += 5
             upper += 5
 
         upper -= 5
-        bounds.append((upper, duration))
+        bounds.append((upper, self.duration))
         return bounds
 
     def split_input_to_segments(self, segment: tuple[int | float]) -> None:
