@@ -13,7 +13,7 @@ class QuizState(State):
             window.onDownloadComplete = () => {
             
             }
-            window.questionNumber = 1
+            window.questionNumber = 0
             navigator.mediaDevices
                 .getUserMedia(
                   {
