@@ -49,4 +49,8 @@ class ChatGPT:
 
 
 if __name__ == "__main__":
-    ...
+    async def main():
+        client = ChatGPT("algorithms and their time complexities")
+        await client.set_questions()
+
+    asyncio.run(main())
