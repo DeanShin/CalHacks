@@ -22,8 +22,9 @@ def first_test():
 
 
 def multi_test_method():
+    print(API_KEY)
     client = HumeBatchClient(API_KEY)
-    filepaths = ["clips.zip"]
+    filepaths = ["hume-input/hume-input.zip"]
     config = [FaceConfig(identify_faces=True), ProsodyConfig()]
     job = client.submit_job([], config, files=filepaths)
 
@@ -63,8 +64,7 @@ def check_job():
     print(status)
 
 
-
-#multi_test_method()
-single_test_method()
+multi_test_method()
+#single_test_method()
 #main()
 #check_job()
