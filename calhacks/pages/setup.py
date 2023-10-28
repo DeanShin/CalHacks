@@ -5,9 +5,8 @@ from calhacks.state import State
 
 class SetupState(State):
     def on_pressed_ready(self):
-        return rx.call_script("navigator.getUserMedia({ video: true, audio: true }, "
-                              "() => { window.location.href = '/quiz' }, "
-                              "() => { window.location.href = '/ })")
+        return rx.call_script("navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(() => { window.location.href = '/quiz' })")
+
 
 @rx.page()
 def setup():
@@ -44,7 +43,7 @@ def setup():
             rx.button(
                 rx.text("Get Started"),
                 width="200px",
-                on_click=lambda : SetupState.on_pressed_ready
+                on_click=SetupState.on_pressed_ready
             ),
         ),
         grid_template_rows = "200px auto 200px",
