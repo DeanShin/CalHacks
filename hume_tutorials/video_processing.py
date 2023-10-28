@@ -67,9 +67,8 @@ def move_output(video_path, out_dir=OUTPUT_DIR) -> None:
         shutil.move(i, os.path.join(out_dir, i))
 
 
-if __name__ == "__main__":
-    name = "Hume-input-video.mp4"
-    obj = Video(name)
+def multithreaded_segmenting_wrapper(video_path: str) -> None:
+    obj = Video(video_path)
     bounds = obj.get_bounds()
 
     num_processes = os.cpu_count()
@@ -82,3 +81,8 @@ if __name__ == "__main__":
     pool.join()
 
     move_output(name)
+
+
+if __name__ == "__main__":
+    name = "Hume-input-video.mp4"
+    multithreaded_segmenting_wrapper(name)
