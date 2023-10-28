@@ -1,6 +1,7 @@
 import json
 from pprint import pprint
 
+
 POSITIVE_EMOTIONS = {
     "Admiration": True,
     "Adoration": True,
@@ -111,7 +112,7 @@ class Hume_Data:
                     v_dict_copy[k_emotion_name] = v_average
 
             sorted_items = sorted(
-                v_dict_copy.items(), key=lambda item: item[1], reverse=True
+                v_dict_copy.items(), key=lambda item: item[1]["average"], reverse=True
             )
             top_emotions = sorted_items[:top_n]
             res[k_file_segment] = top_emotions
@@ -119,6 +120,15 @@ class Hume_Data:
 
     def get_average_emotions(self) -> dict:
         """Emotion type takes in either POSITIVE_EMOTIONS or NEGATIVE_EMOTIONS"""
+
+        def emotion_level(emotion_average: float) -> str:
+            if 0 <= emotion_average < 0.4:
+                return "none to slight "
+            elif 0.4 <= emotion_average < 0.8:
+                return ""
+            else:
+                return "overly "
+
         file_data = {}
 
         for idx, file in enumerate(self.raw_data):
@@ -146,9 +156,13 @@ class Hume_Data:
                         segment_emotion_data[emotion_name] += emotion_score
 
             for k_emotion, v_score in segment_emotion_data.items():
+                if v_score == "":
+                    continue
                 average = v_score / num_frames
-                segment_emotion_data[k_emotion] = average
-
+                segment_emotion_data[k_emotion] = {
+                    "average": average,
+                    "str_repr": f"{emotion_level(average)}{k_emotion}",
+                }
             file_data[file_name] = segment_emotion_data
         return file_data
 
