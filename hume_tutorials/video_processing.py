@@ -63,11 +63,32 @@ def move_output(video_path, out_dir=OUTPUT_DIR) -> None:
         for p in os.listdir(current_directory)
         if re.search(pattern, p)
     ]
+
     for i in segments:
         shutil.move(i, os.path.join(out_dir, i))
 
 
-def multithreaded_segmenting_wrapper(video_path: str) -> None:
+def multithreaded_segmenting_wrapper(video_path: str) -> dict[tuple, str]:
+    """Processes segments of videos, returns bounds for easy mapping
+
+    Parameters
+    ----------
+    video_path : str
+        path to input video file
+
+    Returns
+    -------
+    dict[tuple,str]
+        returns a diction of bounds tuple(int, int) mapped to
+        path. Will make mapping out hume output easier
+
+    Examples
+    --------
+    FIXME: Add docs.
+    _ = multithreaded_segmenting_wrapper([video_path])   # to disregard output
+    res = multithreaded_segmenting_wrapper([video_path]) # to use output
+
+    """
     obj = Video(video_path)
     bounds = obj.get_bounds()
 
@@ -82,7 +103,28 @@ def multithreaded_segmenting_wrapper(video_path: str) -> None:
 
     move_output(name)
 
+    return get_bound_and_file_dict(bounds)
+
+
+def get_bound_and_file_dict(
+    bounds: list[tuple], output_dir=OUTPUT_DIR
+) -> dict[tuple, str]:
+    res: dict[tuple, str] = {}
+    files = os.listdir(output_dir)
+    for lower, upper in bounds:
+        for f_ in files:
+            print()
+            print(f"{f_=}")
+            print()
+            if str(lower) in f_ and str(upper) in f_:
+                res[(lower, upper)] = os.path.join(output_dir, f_)
+    return res
+
 
 if __name__ == "__main__":
     name = "Hume-input-video.mp4"
-    multithreaded_segmenting_wrapper(name)
+    res = multithreaded_segmenting_wrapper(name)
+
+    from pprint import pprint
+
+    pprint(res)
