@@ -82,6 +82,10 @@ def multithreaded_segmenting_wrapper(video_path: str) -> dict[tuple, str]:
         returns a diction of bounds tuple(int, int) mapped to
         path. Will make mapping out hume output easier
 
+    {(0, 5): 'path/to/Output-Segments/0-5-Hume-input-video.mp4',
+    (5, 10): 'path/to/Output-Segments/5-10-Hume-input-video.mp4',
+    ...
+    }
     Examples
     --------
     FIXME: Add docs.
