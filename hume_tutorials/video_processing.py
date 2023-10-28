@@ -129,6 +129,11 @@ def zip_output_folder(folder_to_archive=OUTPUT_DIR) -> None:
         os.mkdir(hume_dir)
 
     shutil.make_archive(hume_dir_name, "zip", folder_to_archive)
+    try: 
+        os.remove(os.path.join(hume_dir, f"{hume_dir_name}.zip"))
+    except:
+        pass
+
     try:
         shutil.move(f"{hume_dir_name}.zip", hume_dir)
     except Exception as e:
