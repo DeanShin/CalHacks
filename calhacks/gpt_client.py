@@ -18,6 +18,7 @@ class ChatGPT:
         """
         self.user_context = user_context
         self.count = 0
+        self.questions = list[str]
 
     async def _generate_questions(self) -> dict:
         prompt = f"""Generate me a list of 10 technical interview questions.
@@ -37,6 +38,14 @@ class ChatGPT:
         )
         # return response["choices"][0]["message"]["content"]
         return response
+
+    def _parse_questions(self, questions_raw: dict) -> list[str]:
+        raw = questions_raw["choices"][0]["message"]["content"]
+        return raw.split("\n")
+
+    async def set_questions(self) -> None:
+        questions = await self._generate_questions()
+        self.questions = self._parse_questions(questions)
 
 
 if __name__ == "__main__":
