@@ -12,6 +12,8 @@
 # 6. Deduce "spikes" in emotions
 import os
 import re
+import shutil
+
 from multiprocessing import Pool
 from moviepy.editor import *
 from functools import partial
@@ -62,7 +64,7 @@ def move_output(video_path, out_dir=OUTPUT_DIR) -> None:
         if re.search(pattern, p)
     ]
     for i in segments:
-        os.rename(i, os.path.join(out_dir, i))
+        shutil.move(i, os.path.join(out_dir, i))
 
 
 if __name__ == "__main__":
