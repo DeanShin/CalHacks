@@ -23,7 +23,6 @@ def top() -> rx.Component:
         height='100vh'
     )
 
-
 @rx.page(route="/")
 def index() -> rx.Component:
     return rx.container(
