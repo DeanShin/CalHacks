@@ -8,5 +8,6 @@ class State(rx.State):
 
     The base state is used to store general vars used throughout the app.
     """
+    interview_context: str
 
     pass
