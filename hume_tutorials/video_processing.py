@@ -12,47 +12,71 @@
 # 6. Deduce "spikes" in emotions
 import os
 import re
+from multiprocessing import Pool
 from moviepy.editor import *
+from functools import partial
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
 OUTPUT_DIR = os.path.join(current_directory, "Output-Segments")
 
 
-def split_input_to_segments(video_path: str, video_seg_len=5) -> None:
-    # TODO might have strip path from video path
-    video = VideoFileClip(video_path)
-    duration = video.duration
-    print(f"{duration=}")
+class Video:
+    def __init__(self, path: str) -> None:
+        self.video = VideoFileClip(path)
+        self.path = path
 
-    lower = 0
-    upper = video_seg_len
-    while upper < duration:
-        subclip = video.subclip(lower, upper)
-        subclip.write_videofile(f"{lower}-{upper}-{video_path}")
-        lower += 5
-        upper += 5
+    def get_bounds(self, video_seg_len=5) -> list[tuple]:
+        duration = self.video.duration
 
-    upper -= 5
-    subclip = video.subclip(upper, duration)
-    subclip.write_videofile(f"{upper}-{duration}-{video_path}")
+        lower = 0
+        upper = video_seg_len
+        bounds: list[tuple] = []
+        while upper < duration:
+            bounds.append((lower, upper))
+            lower += 5
+            upper += 5
+
+        upper -= 5
+        bounds.append((upper, duration))
+        return bounds
+
+    def split_input_to_segments(self, segment: tuple[int | float]) -> None:
+        lower, upper = segment
+        subclip = self.video.subclip(lower, upper)
+        subclip.write_videofile(f"{lower}-{upper}-{self.path}")
 
 
-def _move_output(video_path) -> None:
-    if not os.path.exists(OUTPUT_DIR):
-        os.mkdir(OUTPUT_DIR)
+def process_segment(segment, video_path):
+    video = Video(video_path)
+    video.split_input_to_segments(segment)
+
+
+def move_output(video_path, out_dir=OUTPUT_DIR) -> None:
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
 
     pattern = r"\d+-[\d.]*-" + video_path
-    res = re.search(pattern, f"10-15-{video_path}").group()
     segments = [
         re.search(pattern, p).group()
         for p in os.listdir(current_directory)
         if re.search(pattern, p)
     ]
     for i in segments:
-        os.rename(i, os.path.join(OUTPUT_DIR, i))
+        os.rename(i, os.path.join(out_dir, i))
 
 
 if __name__ == "__main__":
     name = "Hume-input-video.mp4"
-    split_input_to_segments(name)
-    _move_output(name)
+    obj = Video(name)
+    bounds = obj.get_bounds()
+
+    num_processes = os.cpu_count()
+    pool = Pool(processes=num_processes)
+
+    process_segment_partial = partial(process_segment, video_path=name)
+    pool.map(process_segment_partial, bounds)
+
+    pool.close()
+    pool.join()
+
+    move_output(name)
