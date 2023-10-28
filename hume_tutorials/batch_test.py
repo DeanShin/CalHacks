@@ -5,7 +5,7 @@ import os
 import json
 import requests
 
-API_KEY = os.environ.get("API_KEY")
+API_KEY = os.environ.get("HUME_API_KEY")
 
 def first_test():
     url = "https://api.hume.ai/v0/batch/jobs"
