@@ -6,7 +6,7 @@ from calhacks.state import State
 class SetupState(State):
     def on_pressed_ready(self):
         return rx.call_script("navigator.getUserMedia({ video: true, audio: true }, "
-                              "() => { window.location.href = '/' }, "
+                              "() => { window.location.href = '/quiz' }, "
                               "() => { window.location.href = '/ })")
 
 @rx.page()
