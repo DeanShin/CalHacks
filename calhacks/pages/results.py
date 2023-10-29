@@ -1,4 +1,5 @@
 from calhacks.state import State
+from calhacks.hume.hume_out_parser import Hume_Data
 from typing import List, Tuple
 
 import reflex as rx
@@ -64,15 +65,23 @@ class ResultsState(State):
 
 
     async def set_key_moments(self, file):
-        await asyncio.sleep(3)
+        # TODO: get video from self.videos, get hume data and parse with hume_parser
+        hume_parser = Hume_Data()
+        await hume_parser.parse()
+        await asyncio.run()
+        high_emotions: list = hume_parser.top_highs
+        print(high_emotions)
         async with self:
             self.video_data[file.filename] = (
                 self.video_data[file.filename][0],
                 self.video_data[file.filename][1],
                 [
-                    "00:33 -- High Nervousness",
-                    "00:40 -- High Rizz",
-                    "01:23 -- High Confidence",
+                    # ["00:33", "High Nervousness"],
+                    # ["00:40", "High Rizz"],
+                    # ["01:23", "High Confidence"],
+                    [high_emotions[0][1]['timestamp'], high_emotions[0][1]['str_repor']]
+                    [high_emotions[1][1]['timestamp'], high_emotions[1][1]['str_repor']]
+                    [high_emotions[2][1]['timestamp'], high_emotions[2][1]['str_repor']]
                 ]
             )
 
@@ -97,7 +106,7 @@ def category_heading(text) -> rx.Component:
 def video_and_report(video) -> rx.Component:
     return rx.card(
         rx.grid(
-            rx.video(url=video),
+            rx.video(url=f'/{video}'),
             rx.box(
                 category_heading("Content"),
                 rx.cond(

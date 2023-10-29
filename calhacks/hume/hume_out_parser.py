@@ -1,5 +1,7 @@
+"""Hume data parser"""
 import json
 from pprint import pprint
+import os
 
 
 POSITIVE_EMOTIONS = {
@@ -60,19 +62,23 @@ NEGATIVE_EMOTIONS = {
 
 
 class Hume_Data:
-    def __init__(self, path_to_json):
+    def __init__(self, path_to_json='outputs/predictions.json'):
+        # TODO: find relative path to json from repo
         # self.raw_data = json.load(path_to_json)["results"]["predictions"] # Get every file analysis
         self.raw_data = self.read_json(path_to_json)
+        self.negative_averages = []
+        self.positive_averages = []
+        self.top_highs = []
 
-    def wrapper(self):
+    def parse(self):
         avg_data, high_data = self.parse_avg_and_high_emotions()
         # TODO: get top 3 average overall regardless of emotion type?
-        negative_averages = self.get_top_n_emotions(avg_data, NEGATIVE_EMOTIONS)
-        positive_averages = self.get_top_n_emotions(avg_data, POSITIVE_EMOTIONS)
-        top_highs = self.get_top_n_high_emotions(high_data)
-        pprint(negative_averages)
-        pprint(positive_averages)
-        print(top_highs)
+        self.negative_averages = self.get_top_n_emotions(avg_data, NEGATIVE_EMOTIONS)
+        self.positive_averages = self.get_top_n_emotions(avg_data, POSITIVE_EMOTIONS)
+        self.top_highs = self.get_top_n_high_emotions(high_data)
+        pprint(self.negative_averages)
+        pprint(self.positive_averages)
+        pprint(self.top_highs)
 
     def read_json(self, path_to_json):
         with open(path_to_json) as f:
@@ -123,6 +129,11 @@ class Hume_Data:
         Parse top 3 by high score emotions from data
         :param parsed_data: highs data from parse_avg_and_high_emotions()
         :return: list of top 3 highest emotions in data with timestamps
+        -----
+        list = 
+            [
+                
+            ]
         """
         sorted_data = sorted(parsed_data.items(), key=lambda x: x[1]['high'], reverse=True)
         return sorted_data[:3]
@@ -143,7 +154,7 @@ class Hume_Data:
 
         for idx, file in enumerate(self.raw_data):
             file_name = self.raw_data[idx]["file"]
-            print(f"{file_name=}")
+            # print(f"{file_name=}")
 
             grouped_predictions: list[dict] = self.raw_data[idx]["models"]["face"][
                 "grouped_predictions"
@@ -190,7 +201,7 @@ class Hume_Data:
         return file_data, highs
 
 
-if __name__ == "__main__":
-    # obj = Hume_Data("Sample-Outputs/sample-audio-and-face.json")
-    obj = Hume_Data("Sample-Outputs/predictions.json")
-    obj.wrapper()
+# if __name__ == "__main__":
+#     # obj = Hume_Data("outputs/sample-audio-and-face.json")
+#     obj = Hume_Data("outputs/predictions.json")
+#     obj.parse()
