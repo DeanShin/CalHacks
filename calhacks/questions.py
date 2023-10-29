@@ -14,23 +14,33 @@ role_to_questions = {
         "What are pseudo-classes? Provide a few real-world use cases",
     ],
     "Back-end": [
-        "Question 1",
-        "Question 2",
-        "Question 3"
+        "Why would you opt for Mircroservice Architecture?",
+        "What are the seven layers of the OSI system model?",
+        "If you have a limited amount of memory, how would you handle a large amount of data?",
+        "What steps would you take to use mysqldump to restore MySQL?",
+        "How can you build scalability into a software program?",
+        "What is containerization?"
     ],
     "Full-stack": [
-        "Question 1",
-        "Question 2",
-        "Question 3"
+        "How would you find a memory leak?",
+        "How would you debug and resolve a site issue?",
+        "What strategies would you pick up for measuring the success of a new feature?",
+        "What is responsive design? What are its best practices?",
+        "What do event capturing and event bubbling have in common?",
+        "What is the difference between acceptance and functional testing?",
     ],
     "AI/ML": [
-        "Question 1",
-        "Question 2",
-        "Question 3"
+        "What is overfitting? How can you avoid It?"
+        "What is ‘training Set’ and ‘test Set’ in a machine learning model? How much data will you allocate for Your training, validation, and test sets?"
+        "What is the difference between inductive machine learning and deductive machine learning? Give an example for both"
+        "Describe a situation where you would use classification over regression"
+        "Describe the difference between unsupervised learning and supervised learning?"
     ],
     "Devops": [
-        "Question 1",
-        "Question 2",
-        "Question 3"
+        "Describe the different phases on DevOps",
+        "What is the difference between a centralized and distributed version control system(VCS)?",
+        "Can you recall a time when a DevOps project was unsuccessful? Why was it unsuccessful?",
+        "What are some strategies to ensure high availability and fault tolerance in a distributed system?",
+        "Describe your process for automating testing.",
     ]
 }

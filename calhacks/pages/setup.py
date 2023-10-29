@@ -1,3 +1,5 @@
+import random
+
 import reflex as rx
 
 from calhacks.state import State
@@ -10,7 +12,7 @@ class SetupState(State):
     def update_interview_context(self, s):
         self.show_empty_context_error = False
         self.interview_context = s
-        self.questions = role_to_questions[self.interview_context]
+        self.questions = random.sample(role_to_questions[self.interview_context], 3)
 
     def on_pressed_ready(self):
         if len(self.interview_context) == 0:
