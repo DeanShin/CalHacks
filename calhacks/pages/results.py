@@ -12,16 +12,14 @@ class ResultsState(State):
     has_videos: bool = False
     is_uploaded: bool = False
     _files: List[rx.UploadFile]
-    video_data: dict[str, Tuple[str, str, List[Tuple[str, str]]]] = {}
+    video_data: dict[str, Tuple[str, List[str], List[str]]] = {}
 
     @rx.background
     async def populate_video_data(self):
         for file in self._files:
-            async with self:
-                self.video_data[file.filename] = (None, None, None)
             await asyncio.gather(
                 self.set_content(file),
-                self.set_presentation(file),
+                self.set_top_emotions(file),
                 self.set_key_moments(file)
             )
 
@@ -42,10 +40,9 @@ class ResultsState(State):
 
             # Update the videos var.
             self.videos.append(file.filename)
-            self.video_data[file.filename] = (None, None, None)
+            self.video_data[file.filename] = (None, [], [])
         self.has_videos = True
         return ResultsState.populate_video_data
-
 
     async def set_content(self, file):
         await asyncio.sleep(3)
@@ -56,13 +53,12 @@ class ResultsState(State):
                 self.video_data[file.filename][2]
             )
 
-
-    async def set_presentation(self, file):
+    async def set_top_emotions(self, file):
         await asyncio.sleep(3.1)
         async with self:
             self.video_data[file.filename] = (
                 self.video_data[file.filename][0],
-                "Here is the presentation string Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                ["Happiness", "Sadness", "Melancholy"],
                 self.video_data[file.filename][2]
             )
 
@@ -74,9 +70,9 @@ class ResultsState(State):
                 self.video_data[file.filename][0],
                 self.video_data[file.filename][1],
                 [
-                    ["00:33", "High Nervousness"],
-                    ["00:40", "High Rizz"],
-                    ["01:23", "High Confidence"],
+                    "00:33 -- High Nervousness",
+                    "00:40 -- High Rizz",
+                    "01:23 -- High Confidence",
                 ]
             )
 
@@ -105,21 +101,31 @@ def video_and_report(video) -> rx.Component:
             rx.box(
                 category_heading("Content"),
                 rx.cond(
-                    ResultsState.video_data[video][0] is not None,
+                    ResultsState.video_data[video][0],
                     rx.text('' if ResultsState.video_data[video][0] is None else ResultsState.video_data[video][0]),
                     rx.spinner()
                 ),
-                category_heading("Presentation"),
+                category_heading("Top Emotions"),
                 rx.cond(
-                    ResultsState.video_data[video][1] is not None,
-                    rx.text('' if ResultsState.video_data[video][1] is None else ResultsState.video_data[video][1]),
+                    ResultsState.video_data[video][1],
+                    rx.list(
+                        rx.foreach(
+                            ResultsState.video_data[video][1],
+                            lambda v: rx.text(v)
+                        )
+                    ),
                     rx.spinner()
                 ),
                 category_heading("Key Moments"),
-                rx.list(
-                    rx.list_item("00:05 -- High Nervousness"),
-                    rx.list_item("00:20 -- High Confidence"),
-                    rx.list_item("03:40 -- High Rizz"),
+                rx.cond(
+                    ResultsState.video_data[video][2],
+                    rx.list(
+                        rx.foreach(
+                            ResultsState.video_data[video][2],
+                            lambda v : rx.text(v)
+                        )
+                    ),
+                    rx.spinner()
                 )
             ),
             grid_template_columns="1fr 1fr",
@@ -164,32 +170,28 @@ def upload_view() -> rx.Component:
             "Clear",
             on_click=rx.clear_selected_files,
         ),
-        rx.cond(
-            ResultsState.has_videos,
-            rx.flex(
-                rx.foreach(
-                    ResultsState.videos,
-                    lambda video: video_and_report(video)
-                ),
-                background_color="#E1E5F2",
-                flex_direction="column",
-                padding="32px",
-                gap="32px"
-            ),
-        ),
         padding="5em",
     )
 
 
 def results_view() -> rx.Component:
     """Generate results after videos are uploaded"""
-    return rx.text('text')
+    return rx.flex(
+        rx.foreach(
+            ResultsState.videos,
+            lambda video: video_and_report(video)
+        ),
+        background_color="#E1E5F2",
+        flex_direction="column",
+        padding="32px",
+        gap="32px"
+    )
 
 
 @rx.page(route='/results')
 def results():
     return rx.cond(
-        ResultsState.is_uploaded,
+        ResultsState.has_videos,
         results_view(),
         upload_view()
     )
