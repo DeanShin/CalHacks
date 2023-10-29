@@ -9,7 +9,7 @@ if not os.environ.get("OPENAI_API_KEY"):
 
 
 class ChatGPT:
-    def __init__(self, user_context: str):
+    def __init__(self, user_context: str, user_answer: str):
         """
         Parameters
         ----------
@@ -20,7 +20,8 @@ class ChatGPT:
         self.user_context = user_context
         self.count = 0
         self.questions = list[str]
-        self.advice = str
+        self.advice = ""
+        self.user_answer = ""
 
     async def _generate_questions(self) -> dict:
         print('\t-generating questions')
@@ -58,8 +59,7 @@ class ChatGPT:
 
     async def _generate_advice(self) -> str:
         print('\t-generating advice')
-        prompt = f"""I was asked as an interviewee 'What does the bash command 'chmod' do?' And I responded with 'chmod will change the umm
-        the mode of the file. You have several different options to change and you can read and execute. uh.. yeah'. What advice do you have for me?"""
+        prompt = f"""I was asked as an interviewee {self.user_context} And I responded with {self.user_answer}. What advice do you have for me?"""
 
         # prompt chatgpt
         advice = openai.ChatCompletion.create(
@@ -87,12 +87,13 @@ class ChatGPT:
         advice = await self._generate_advice()
         self.advice = self._parse_advice(advice)
 
-
+"""
 async def main():
-    client = ChatGPT("Common Linux CLI commands")
+    client = ChatGPT("What is chmod in Linux?")
     #questions = await client.set_questions()
     #print(client.questions)
     advice = await client.get_advice()
     print(client.advice)
 if __name__ == "__main__":
     asyncio.run(main())
+"""
