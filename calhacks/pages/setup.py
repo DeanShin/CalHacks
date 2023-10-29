@@ -1,6 +1,7 @@
 import reflex as rx
 
 from calhacks.state import State
+from calhacks.questions import role_to_questions
 
 
 class SetupState(State):
@@ -9,6 +10,7 @@ class SetupState(State):
     def update_interview_context(self, s):
         self.show_empty_context_error = False
         self.interview_context = s
+        self.questions = role_to_questions[self.interview_context]
 
     def on_pressed_ready(self):
         if len(self.interview_context) == 0:
@@ -51,13 +53,12 @@ def setup():
         rx.center(
             rx.box(
                 rx.text(
-                    "Interview context",
+                    "Role",
                 ),
-                rx.text_area(
-                    on_change=SetupState.update_interview_context,
-                    placeholder="I am applying for a position in Software Engineering as a new grad",
-                    width="400px",
-                    is_invalid=SetupState.show_empty_context_error
+                rx.select(
+                    [*role_to_questions.keys()],
+                    placeholder="Select the role that you are applying for",
+                    on_change=SetupState.update_interview_context
                 )
             )
         ),

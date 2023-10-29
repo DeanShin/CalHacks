@@ -1,7 +1,6 @@
 """Welcome to Reflex!."""
 
 from calhacks import styles
-from calhacks.pages import index, get_started
 
 # Import all the pages.
 from calhacks.pages import *
