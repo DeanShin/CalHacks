@@ -12,15 +12,32 @@ if not os.path.exists(AUDIO_OUT_DIR):
     os.mkdir(AUDIO_OUT_DIR)
 
 
-def convert_mp4_to_wav(mp4_file: str, working_dir=None) -> None:
-    wav_file = f"{mp4_file.rstrip('-video.mp4')}-audio.wav"
+def convert_webm_to_mp4(webm: str, working_dir=None) -> None:
+    mp4 = f"{webm.rstrip('.webm')}.mp4"
 
     try:
-        # Use FFmpeg to convert MP4 to WAV
-        cmd = ["ffmpeg", "-i", mp4_file, "-vn", f"{AUDIO_OUT_DIR}/{wav_file}", "-y"]
+        # Use FFmpeg to convert MP4 or webm to WAV
+        cmd = ["ffmpeg", "-i", webm, f"{AUDIO_OUT_DIR}/{mp4}", "-y"]
         subprocess.run(cmd, check=True, stdout=DEVNULL, stderr=DEVNULL)
 
-        print(f"Conversion complete: {mp4_file} -> {wav_file}")
+        print(f"Conversion complete: {webm} -> {mp4}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error converting the file: {e}")
+    except FileNotFoundError:
+        print(
+            "FFmpeg not found. Please install FFmpeg and make sure it's in your system's PATH."
+        )
+
+
+def convert_video_to_wav(mp4_or_webm: str, working_dir=None) -> None:
+    wav_file = f"{mp4_or_webm.rstrip('-video.mp4').rstrip('.webm')}-audio.wav"
+
+    try:
+        # Use FFmpeg to convert MP4 or webm to WAV
+        cmd = ["ffmpeg", "-i", mp4_or_webm, "-vn", f"{AUDIO_OUT_DIR}/{wav_file}", "-y"]
+        subprocess.run(cmd, check=True, stdout=DEVNULL, stderr=DEVNULL)
+
+        print(f"Conversion complete: {mp4_or_webm} -> {wav_file}")
     except subprocess.CalledProcessError as e:
         print(f"Error converting the file: {e}")
     except FileNotFoundError:
@@ -53,6 +70,6 @@ def wav_to_audio_transcript() -> str:
 
 if __name__ == "__main__":
     print(f"{current_directory=}")
-    # convert_mp4_to_wav("Hume-input-video.mp4")
-    # res = wav_to_audio_transcript()
-    # print(res)
+    convert_video_to_wav("Hume-input-video.mp4")
+    res = wav_to_audio_transcript()
+    print(res)
