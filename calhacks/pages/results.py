@@ -10,6 +10,7 @@ class ResultsState(State):
     """The app state."""
     # The images to show.
     videos: list[str]
+    video_to_question_number: dict[str, int]
     has_videos: bool = False
     is_uploaded: bool = False
     _files: List[rx.UploadFile]
@@ -41,6 +42,7 @@ class ResultsState(State):
 
             # Update the videos var.
             self.videos.append(file.filename)
+            self.video_to_question_number[file.filename] = int(re.search(r'[\d]+', file.filename).group(0))
             self.video_data[file.filename] = (None, [], [])
         self.has_videos = True
         return ResultsState.populate_video_data
@@ -105,41 +107,47 @@ def category_heading(text) -> rx.Component:
 
 def video_and_report(video) -> rx.Component:
     return rx.card(
-        rx.grid(
-            rx.video(url=f'/{video}'),
-            rx.box(
-                category_heading("Content"),
-                rx.cond(
-                    ResultsState.video_data[video][0],
-                    rx.text('' if ResultsState.video_data[video][0] is None else ResultsState.video_data[video][0]),
-                    rx.spinner()
-                ),
-                category_heading("Top Emotions"),
-                rx.cond(
-                    ResultsState.video_data[video][1],
-                    rx.list(
-                        rx.foreach(
-                            ResultsState.video_data[video][1],
-                            lambda v: rx.text(v)
-                        )
-                    ),
-                    rx.spinner()
-                ),
-                category_heading("Key Moments"),
-                rx.cond(
-                    ResultsState.video_data[video][2],
-                    rx.list(
-                        rx.foreach(
-                            ResultsState.video_data[video][2],
-                            lambda v : rx.text(v)
-                        )
-                    ),
-                    rx.spinner()
-                )
+        rx.box(
+            rx.cond(
+                ResultsState.video_to_question_number[video] is not None,
+                rx.heading(State.questions[ResultsState.video_to_question_number[video]], margin_bottom='16px'),
             ),
-            grid_template_columns="1fr 1fr",
-            align_items="center",
-            gap="32px"
+            rx.grid(
+                rx.video(url=f'/{video}'),
+                rx.box(
+                    category_heading("Content"),
+                    rx.cond(
+                        ResultsState.video_data[video][0],
+                        rx.text('' if ResultsState.video_data[video][0] is None else ResultsState.video_data[video][0]),
+                        rx.spinner()
+                    ),
+                    category_heading("Top Emotions"),
+                    rx.cond(
+                        ResultsState.video_data[video][1],
+                        rx.list(
+                            rx.foreach(
+                                ResultsState.video_data[video][1],
+                                lambda v: rx.text(v)
+                            )
+                        ),
+                        rx.spinner()
+                    ),
+                    category_heading("Key Moments"),
+                    rx.cond(
+                        ResultsState.video_data[video][2],
+                        rx.list(
+                            rx.foreach(
+                                ResultsState.video_data[video][2],
+                                lambda v: rx.text(v)
+                            )
+                        ),
+                        rx.spinner()
+                    )
+                ),
+                grid_template_columns="1fr 1fr",
+                align_items="center",
+                gap="32px"
+            )
         )
     )
 
