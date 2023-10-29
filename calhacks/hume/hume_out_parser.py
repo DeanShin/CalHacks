@@ -66,7 +66,7 @@ class Hume_Data:
 
         # TODO: find relative path to json from repo
         # self.raw_data = json.load(path_to_json)["results"]["predictions"] # Get every file analysis
-        self.raw_data = self.read_json('/Users/deanshin/Development/calhacks/calhacks/hume/outputs/predictions.json')
+        self.raw_data = self.read_json('./calhacks/hume/outputs/predictions.json')
         self.negative_averages = []
         self.positive_averages = []
         self.top_highs = []
@@ -144,11 +144,11 @@ class Hume_Data:
 
         def emotion_level(emotion_average: float) -> str:
             if 0 <= emotion_average < 0.4:
-                return "none to slight "
+                return "Low "
             elif 0.4 <= emotion_average < 0.8:
-                return ""
+                return "Medium "
             else:
-                return "overly "
+                return "High "
 
         file_data = {}
         highs = {} # hold highs for each emotion
