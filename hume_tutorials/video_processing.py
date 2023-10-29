@@ -46,6 +46,29 @@ class Video:
         subclip = self.video.subclip(lower, upper)
         subclip.write_videofile(f"{lower}-{upper}-{self.path}")
 
+    def get_subclip(self, clip_name: str, buffer=3) -> None:
+        # 10-15-Hume-input-video.mp4
+        names = clip_name.split("-")
+        clip_start = float(names[0])
+        clip_end = float(names[1])
+
+        if clip_start-buffer > 0:
+            lower = clip_start-buffer
+            if lower.is_integer():
+                lower = int(lower)
+        else:
+            lower = int(0)
+
+        if clip_end+buffer < self.duration:
+            upper = clip_end+buffer
+            if upper.is_integer():
+                upper = int(upper)
+        else:
+            upper = self.duration
+        
+        subclip = self.video.subclip(lower, upper)
+        subclip.write_videofile(f"{lower}-{upper}-gptcontext-{self.path}")
+
 
 def process_segment(segment, video_path):
     video = Video(video_path)
@@ -158,3 +181,5 @@ if __name__ == "__main__":
     zip_output_folder()
     print("======================================")
 
+    testing = Video(name)
+    testing.get_subclip("10-15-Hume-input-video.mp4", buffer=15)
