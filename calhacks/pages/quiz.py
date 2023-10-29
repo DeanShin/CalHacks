@@ -5,7 +5,6 @@ from calhacks.state import State
 
 
 class QuizState(State):
-    questions = ['Question 1', 'Question 2', 'Question 3', 'Question 4']
     question_number: int = 0
 
     def on_page_opened(self):
