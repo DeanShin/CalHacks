@@ -2,7 +2,7 @@
 import json
 from pprint import pprint
 import os
-
+import os
 
 POSITIVE_EMOTIONS = {
     "Admiration": True,
@@ -62,10 +62,11 @@ NEGATIVE_EMOTIONS = {
 
 
 class Hume_Data:
-    def __init__(self, path_to_json='outputs/predictions.json'):
+    def __init__(self, path_to_json=os.path.join(os.path.abspath(__file__),'/../hume/outputs/predictions.json')):
+
         # TODO: find relative path to json from repo
         # self.raw_data = json.load(path_to_json)["results"]["predictions"] # Get every file analysis
-        self.raw_data = self.read_json(path_to_json)
+        self.raw_data = self.read_json('/Users/deanshin/Development/calhacks/calhacks/hume/outputs/predictions.json')
         self.negative_averages = []
         self.positive_averages = []
         self.top_highs = []

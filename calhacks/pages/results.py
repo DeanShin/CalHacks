@@ -73,8 +73,7 @@ class ResultsState(State):
     async def set_key_moments(self, file):
         # TODO: get video from self.videos, get hume data and parse with hume_parser
         hume_parser = Hume_Data()
-        await hume_parser.parse()
-        await asyncio.run()
+        hume_parser.parse()
         high_emotions: list = hume_parser.top_highs
         print(high_emotions)
         async with self:
@@ -82,12 +81,12 @@ class ResultsState(State):
                 self.video_data[file.filename][0],
                 self.video_data[file.filename][1],
                 [
-                    # ["00:33", "High Nervousness"],
-                    # ["00:40", "High Rizz"],
-                    # ["01:23", "High Confidence"],
-                    [high_emotions[0][1]['timestamp'], high_emotions[0][1]['str_repor']]
-                    [high_emotions[1][1]['timestamp'], high_emotions[1][1]['str_repor']]
-                    [high_emotions[2][1]['timestamp'], high_emotions[2][1]['str_repor']]
+                    "00:33 -- High Nervousness",
+                    "00:40 -- High Calmness",
+                    "01:23 -- High Confidence",
+                    # str(high_emotions[0][1]['timestamp']) + '--' + high_emotions[0][1]['str_repr'],
+                    # str(high_emotions[1][1]['timestamp']) + '--' + high_emotions[1][1]['str_repr'],
+                    # str(high_emotions[2][1]['timestamp']) + '--' + high_emotions[2][1]['str_repr'],
                 ]
             )
 
