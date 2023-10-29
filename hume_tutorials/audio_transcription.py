@@ -18,13 +18,16 @@ def convert_mp4_to_wav(mp4_file: str, working_dir=None) -> None:
     try:
         # Use FFmpeg to convert MP4 to WAV
         cmd = ["ffmpeg", "-i", mp4_file, "-vn", f"{AUDIO_OUT_DIR}/{wav_file}", "-y"]
-        subprocess.run(cmd, check=True, stdout=DEVNULL,stderr=DEVNULL)
+        subprocess.run(cmd, check=True, stdout=DEVNULL, stderr=DEVNULL)
 
         print(f"Conversion complete: {mp4_file} -> {wav_file}")
     except subprocess.CalledProcessError as e:
         print(f"Error converting the file: {e}")
     except FileNotFoundError:
-        print("FFmpeg not found. Please install FFmpeg and make sure it's in your system's PATH.")
+        print(
+            "FFmpeg not found. Please install FFmpeg and make sure it's in your system's PATH."
+        )
+
 
 def wav_to_audio_transcript() -> str:
     recognizer = sr.Recognizer()
@@ -53,5 +56,3 @@ if __name__ == "__main__":
     # convert_mp4_to_wav("Hume-input-video.mp4")
     # res = wav_to_audio_transcript()
     # print(res)
-
-
