@@ -1,8 +1,9 @@
 from calhacks.state import State
+from typing import List, Tuple
 
 import reflex as rx
 import re
-
+import asyncio
 
 class ResultsState(State):
     """The app state."""
@@ -10,14 +11,27 @@ class ResultsState(State):
     videos: list[str]
     has_videos: bool = False
     is_uploaded: bool = False
+    _files: List[rx.UploadFile]
+    video_data: dict[str, Tuple[str, str, List[Tuple[str, str]]]] = {}
 
-    async def handle_upload(self, files: list[rx.UploadFile]):
+    @rx.background
+    async def populate_video_data(self):
+        for file in self._files:
+            async with self:
+                self.video_data[file.filename] = (None, None, None)
+            await asyncio.gather(
+                self.set_content(file),
+                self.set_presentation(file),
+                self.set_key_moments(file)
+            )
+
+    async def handle_upload(self, files: List[rx.UploadFile]):
         """
         Handle the upload video files and store it locally in .web/public directory.
 
         :param files: The uploaded files.
         """
-        print('handling')
+        self._files = files
         for file in files:
             upload_data = await file.read()
             outfile = f".web/public/{file.filename}"
@@ -28,10 +42,45 @@ class ResultsState(State):
 
             # Update the videos var.
             self.videos.append(file.filename)
+            self.video_data[file.filename] = (None, None, None)
         self.has_videos = True
-        # TODO: uncommend below to show results_view() component when video file is uploaded
-        # self.is_uploaded = True
-        
+        return ResultsState.populate_video_data
+
+
+    async def set_content(self, file):
+        await asyncio.sleep(3)
+        async with self:
+            self.video_data[file.filename] = (
+                "Here is the content string Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                self.video_data[file.filename][1],
+                self.video_data[file.filename][2]
+            )
+
+
+    async def set_presentation(self, file):
+        await asyncio.sleep(3.1)
+        async with self:
+            self.video_data[file.filename] = (
+                self.video_data[file.filename][0],
+                "Here is the presentation string Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                self.video_data[file.filename][2]
+            )
+
+
+    async def set_key_moments(self, file):
+        await asyncio.sleep(3)
+        async with self:
+            self.video_data[file.filename] = (
+                self.video_data[file.filename][0],
+                self.video_data[file.filename][1],
+                [
+                    ["00:33", "High Nervousness"],
+                    ["00:40", "High Rizz"],
+                    ["01:23", "High Confidence"],
+                ]
+            )
+
+
 
 color = '' # TODO: make it pretty
 
@@ -55,9 +104,17 @@ def video_and_report(video) -> rx.Component:
             rx.video(url=video),
             rx.box(
                 category_heading("Content"),
-                rx.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                rx.cond(
+                    ResultsState.video_data[video][0] is not None,
+                    rx.text('' if ResultsState.video_data[video][0] is None else ResultsState.video_data[video][0]),
+                    rx.spinner()
+                ),
                 category_heading("Presentation"),
-                rx.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                rx.cond(
+                    ResultsState.video_data[video][1] is not None,
+                    rx.text('' if ResultsState.video_data[video][1] is None else ResultsState.video_data[video][1]),
+                    rx.spinner()
+                ),
                 category_heading("Key Moments"),
                 rx.list(
                     rx.list_item("00:05 -- High Nervousness"),
