@@ -1,7 +1,6 @@
 import os
 import asyncio
 import openai
-import pickle
 
 
 if not os.environ.get("OPENAI_API_KEY"):
@@ -60,5 +59,6 @@ async def main():
     client = ChatGPT("algorithms and their time complexities")
     questions = await client.set_questions()
     print(client.questions)
+
 if __name__ == "__main__":
     asyncio.run(main())
