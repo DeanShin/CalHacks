@@ -16,8 +16,18 @@ from pprint import pprint
 # # RAW_DEAN_DATA = 
 
 
-async def get_dean_set_content():
-    ...
+def get_dean_set_content() -> str:
+    return """
+    Clarity and Confidence: When answering questions about technical topics, it's essential to provide clear and confident responses. Avoid hesitations like "umm" and "uh" to appear more knowledgeable.
+
+    Define the Purpose: Start by clearly stating what the chmod command does, such as "The chmod command is used to change the permissions or access mode of a file in a Unix-like operating system."
+
+    Explain the Options: Mention that chmod offers various options to modify permissions, including read, write, and execute permissions. For example, "With chmod, you can add or remove read, write, and execute permissions on a file or directory."
+
+    Practice: Practice your answers to common technical interview questions to ensure you can respond confidently and without hesitations.
+
+    By following these guidelines, the interviewee can improve their answer and present themselves more effectively during a technical interview.
+    """
 
 def get_dean_top_emotions():
     ...
