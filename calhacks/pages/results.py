@@ -5,30 +5,37 @@ import reflex as rx
 class ResultsState(State):
     """The app state."""
     # The images to show.
-    img: list[str]
+    videos: list[str]
     is_uploaded: bool = False
 
     async def handle_upload(self, files: list[rx.UploadFile]):
-        """Handle the upload of file(s).
-        Args:
-            files: The uploaded files.
         """
+        Handle the upload video files and store it locally in .web/public directory.
+
+        :param files: The uploaded files.
+        """
+        print('handling')
         for file in files:
             upload_data = await file.read()
-            outfile = rx.get_asset_path(file.filename)
+            outfile = f".web/public/{file.filename}"
 
             # Save the file.
             with open(outfile, "wb") as file_object:
                 file_object.write(upload_data)
 
-            # Update the img var.
-            self.img.append(file.filename)
-        is_uploaded = True
+            # Update the videos var.
+            self.videos.append(file.filename)
+        # TODO: uncommend below to show results_view() component when video file is uploaded
+        # self.is_uploaded = True
+        
 
-color = 'E1E5F2' # lightgrey
+color = '' # TODO: make it pretty
 
 def upload_view() -> rx.Component:
-    """The main view."""
+    """
+    Have user drag or upload .webm files.
+    videos are stored in ./web/public folder
+    """
     return rx.vstack(
         rx.upload(
             rx.vstack(
@@ -42,7 +49,10 @@ def upload_view() -> rx.Component:
                     "Drag and drop files here or click to select files"
                 ),
             ),
-            border=f"1px dotted {color}",
+            accept={
+                'video/webm': ['.webm']
+            },
+            border=f"2px dotted {color}",
             padding="5em",
         ),
         rx.hstack(rx.foreach(rx.selected_files, rx.text)),
@@ -57,14 +67,16 @@ def upload_view() -> rx.Component:
             on_click=rx.clear_selected_files,
         ),
         rx.foreach(
-            ResultsState.img, lambda img: rx.image(src=img)
+            ResultsState.videos, lambda videos: rx.box(rx.heading('video!'), rx.video(url=videos))
         ),
         padding="5em",
     )
 
 
 def results_view() -> rx.Component:
+    """Generate results after videos are uploaded"""
     return rx.text('text')
+
 
 @rx.page(route='/results')
 def results():
@@ -73,3 +85,4 @@ def results():
         results_view(),
         upload_view()
     )
+    
