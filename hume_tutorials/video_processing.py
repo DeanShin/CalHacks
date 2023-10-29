@@ -19,7 +19,10 @@ from moviepy.editor import *
 from functools import partial
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
-OUTPUT_DIR = os.path.join(current_directory, "Output-Segments")
+VIDEO_OUT_DIR = os.path.join(current_directory, "Video-Out")
+
+if not os.path.exists(VIDEO_OUT_DIR):
+    os.mkdir(VIDEO_OUT_DIR)
 
 
 class Video:
@@ -75,7 +78,8 @@ def process_segment(segment, video_path):
     video.split_input_to_segments(segment)
 
 
-def move_output(video_path, out_dir=OUTPUT_DIR) -> None:
+def move_output(video_path, out_dir=VIDEO_OUT_DIR) -> None:
+    shutil.rmtree(out_dir)
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
 
@@ -104,8 +108,8 @@ def multithreaded_segmenting_wrapper(video_path: str) -> dict[tuple, str]:
         returns a diction of bounds tuple(int, int) mapped to
         path. Will make mapping out hume output easier
 
-    {(0, 5): 'path/to/Output-Segments/0-5-Hume-input-video.mp4',
-    (5, 10): 'path/to/Output-Segments/5-10-Hume-input-video.mp4',
+    {(0, 5): 'path/to/Video-Out/0-5-Hume-input-video.mp4',
+    (5, 10): 'path/to/Video-Out/5-10-Hume-input-video.mp4',
     ...
     }
     Examples
@@ -133,7 +137,7 @@ def multithreaded_segmenting_wrapper(video_path: str) -> dict[tuple, str]:
 
 
 def get_bound_and_file_dict(
-    bounds: list[tuple], output_dir=OUTPUT_DIR
+    bounds: list[tuple], output_dir=VIDEO_OUT_DIR
 ) -> dict[tuple, str]:
     res: dict[tuple, str] = {}
     files = os.listdir(output_dir)
@@ -144,7 +148,7 @@ def get_bound_and_file_dict(
     return res
 
 
-def zip_output_folder(folder_to_archive=OUTPUT_DIR) -> None:
+def zip_output_folder(folder_to_archive=VIDEO_OUT_DIR) -> None:
     hume_dir_name = "hume-input"
     hume_dir = os.path.join(current_directory, hume_dir_name)
     if not os.path.exists(hume_dir):
@@ -177,7 +181,7 @@ if __name__ == "__main__":
     print()
 
     print("======================================")
-    print(f"Zipping out from {OUTPUT_DIR=} to {current_directory}/Hume-input/hume-input.zip")
+    print(f"Zipping out from {VIDEO_OUT_DIR=} to {current_directory}/Hume-input/hume-input.zip")
     zip_output_folder()
     print("======================================")
 
