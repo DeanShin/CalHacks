@@ -30,10 +30,10 @@ role_to_questions = {
         "What is the difference between acceptance and functional testing?",
     ],
     "AI/ML": [
-        "What is overfitting? How can you avoid It?"
-        "What is ‘training Set’ and ‘test Set’ in a machine learning model? How much data will you allocate for Your training, validation, and test sets?"
-        "What is the difference between inductive machine learning and deductive machine learning? Give an example for both"
-        "Describe a situation where you would use classification over regression"
+        "What is overfitting? How can you avoid It?",
+        "What is ‘training Set’ and ‘test Set’ in a machine learning model? How much data will you allocate for Your training, validation, and test sets?",
+        "What is the difference between inductive machine learning and deductive machine learning? Give an example for both",
+        "Describe a situation where you would use classification over regression",
         "Describe the difference between unsupervised learning and supervised learning?"
     ],
     "Devops": [
