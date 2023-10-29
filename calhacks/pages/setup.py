@@ -25,7 +25,17 @@ class SetupState(State):
 def setup():
     return rx.grid(
         rx.box(),
-        rx.heading("How it works", size="xl", text_align="center"),
+        rx.heading(
+            rx.span(
+                "How it works",
+                display="content-block",
+                padding=".1em .1em",
+                border_radius="1000px",
+                background="#BFDBF7"
+            ),
+            size="xl",
+            text_align="center"
+        ),
         rx.grid(
             rx.card(
                 rx.text(
@@ -67,9 +77,10 @@ def setup():
         ),
         rx.center(
             rx.button(
-                rx.text("Get Started"),
+                rx.text("Start the Interview"),
                 width="200px",
-                on_click=SetupState.on_pressed_ready
+                on_click=SetupState.on_pressed_ready,
+                background="#BFDBF7"
             ),
         ),
         rx.box(),

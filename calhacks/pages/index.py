@@ -6,13 +6,22 @@ import reflex as rx
 def index() -> rx.Component:
     return rx.grid(
         rx.box(),
-        rx.heading('IntervYou', size="2xl", text_align="center"),
+        rx.heading(
+            rx.span(
+                "IntervYou",
+                display="content-block",
+                padding=".1em .1em",
+                border_radius="1000px",
+                background="#BFDBF7"
+            ),
+            size="2xl",
+            text_align="center"),
         rx.heading('AI-driven interview preparation for self-improvement', size="md", text_align="center"),
         rx.text('a project by Memory Leeks, Calhacks 10.0', text_align="center"),
         rx.center(
             rx.link(
-                rx.button('Get Started'),
-                href='http://localhost:3000/setup'
+                rx.button('Get Started', background="#BFDBF7"),
+                href='http://localhost:3000/setup',
             ),
         ),
         rx.box(),

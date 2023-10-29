@@ -67,6 +67,10 @@ class QuizState(State):
             """
         )
 
+    @rx.var
+    def has_next_question(self):
+        return self.question_number + 1 < len(self.questions)
+
 
 @rx.page()
 def quiz():
@@ -82,7 +86,11 @@ def quiz():
         ),
         rx.center(
             rx.button(
-                "Next question",
+                rx.cond(
+                    QuizState.has_next_question,
+                    "Next question",
+                    "View your results"
+                ),
                 on_click=QuizState.on_next_question_pressed,
             )
         ),
