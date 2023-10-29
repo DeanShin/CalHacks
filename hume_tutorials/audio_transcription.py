@@ -6,6 +6,10 @@ import speech_recognition as sr
 from pydub import AudioSegment
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
+AUDIO_OUT_DIR = os.path.join(current_directory, "Audio-Output")
+
+if not os.path.exists(AUDIO_OUT_DIR):
+    os.mkdir(AUDIO_OUT_DIR)
 
 
 def convert_mp4_to_wav(mp4_file: str, working_dir=None) -> None:
@@ -13,7 +17,7 @@ def convert_mp4_to_wav(mp4_file: str, working_dir=None) -> None:
 
     try:
         # Use FFmpeg to convert MP4 to WAV
-        cmd = ["ffmpeg", "-i", mp4_file, "-vn", wav_file, "-y"]
+        cmd = ["ffmpeg", "-i", mp4_file, "-vn", f"{AUDIO_OUT_DIR}/{wav_file}", "-y"]
         subprocess.run(cmd, check=True, stdout=DEVNULL,stderr=DEVNULL)
 
         print(f"Conversion complete: {mp4_file} -> {wav_file}")
@@ -46,8 +50,8 @@ def wav_to_audio_transcript() -> str:
 
 if __name__ == "__main__":
     print(f"{current_directory=}")
-    convert_mp4_to_wav("Hume-input-video.mp4")
-    res = wav_to_audio_transcript()
-    print(res)
+    # convert_mp4_to_wav("Hume-input-video.mp4")
+    # res = wav_to_audio_transcript()
+    # print(res)
 
 
