@@ -37,7 +37,8 @@ def get_dean_top_emotions():
     pprint(hume_parser.top_highs)
     res = []
     for emotion, dict_granular_details in hume_parser.top_highs: # iterating through tuples
-        res.append(dict_granular_details["str_repr"])
+        # res.append(dict_granular_details["str_repr"])
+        res.append(emotion)
     return res
 
 async def get_dean_key_moments():
