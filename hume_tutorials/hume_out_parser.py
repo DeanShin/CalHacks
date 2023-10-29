@@ -65,11 +65,14 @@ class Hume_Data:
         self.raw_data = self.read_json(path_to_json)
 
     def wrapper(self):
-        data = self.get_average_emotions()
-        negative_averages = self.get_top_n_emotions(data, NEGATIVE_EMOTIONS)
-        positive_averages = self.get_top_n_emotions(data, POSITIVE_EMOTIONS)
+        avg_data, high_data = self.parse_avg_and_high_emotions()
+        # TODO: get top 3 average overall regardless of emotion type?
+        negative_averages = self.get_top_n_emotions(avg_data, NEGATIVE_EMOTIONS)
+        positive_averages = self.get_top_n_emotions(avg_data, POSITIVE_EMOTIONS)
+        top_highs = self.get_top_n_high_emotions(high_data)
         pprint(negative_averages)
         pprint(positive_averages)
+        print(top_highs)
 
     def read_json(self, path_to_json):
         with open(path_to_json) as f:
@@ -78,47 +81,53 @@ class Hume_Data:
     def get_top_n_emotions(
         self, parsed_data: dict, emotion_type: dict, top_n=3
     ) -> dict:
-        """Parses segments of videos and returns a string of their top N emotions
+        """
+        Averages all file segment averages to get an overall top 3 average emotions
 
         Parameters
         ----------
         parsed_data : dict
-            data from function: get_average_emotions()
+            data from function: parse_avg_and_high_emotions()
         top_n : int
             represents top n emotions
 
         Returns
         -------
-        dict =
-            {'0-5-Hume-input-video.mp4': [('Amusement', 0.5361335585514705),
-                                        ('Interest', 0.5038713276386261),
-                                        ('Joy', 0.49698808093865715)],
-            '10-15-Hume-input-video.mp4': [('Amusement', 0.5422676205635071),
-                                            ('Interest', 0.50926606853803),
-                                            ('Joy', 0.47855714758237206)],
-            '15-17.02-Hume-input-video.mp4': [('Joy', 0.8632936307362148),
-                                            ('Amusement', 0.8348885178565979),
-                                            ('Excitement', 0.5327329039573669)],
-            '5-10-Hume-input-video.mp4': [('Amusement', 0.6442351480325063),
-                                        ('Joy', 0.6116871337095896),
-                                        ('Interest', 0.49974467356999713)]}
+        list = 
+            [
+                ('Calmness', {'average': 0.37940427596132786, 'str_repr': 'none to slight Calmness'}),
+                ('Amusement', {'average': 0.3716967106019595, 'str_repr': 'none to slight Amusement'}),
+                ('Joy', {'average': 0.3490989075306995, 'str_repr': 'none to slight Joy'})
+            }
         """
-        pprint(emotion_type)
         res = {}
+        count = {}
         for k_file_segment, v_dict in parsed_data.items():
-            v_dict_copy = {}
-            for k_emotion_name, v_average in v_dict.items():
+            for k_emotion_name, v_emotion_vals in v_dict.items():
                 if emotion_type.get(k_emotion_name, None):
-                    v_dict_copy[k_emotion_name] = v_average
+                    if res.get(k_emotion_name, None):
+                        res[k_emotion_name]['average'] += v_emotion_vals['average']
+                    else:
+                        res[k_emotion_name] = {**v_emotion_vals}
+                    count[k_emotion_name] = count.get(k_emotion_name, 0) + 1
+                    
+        for k_emotion_name, v_emotion_vals in res.items():
+            res[k_emotion_name]['average'] = v_emotion_vals['average']/count[k_emotion_name]
 
-            sorted_items = sorted(
-                v_dict_copy.items(), key=lambda item: item[1]["average"], reverse=True
-            )
-            top_emotions = sorted_items[:top_n]
-            res[k_file_segment] = top_emotions
-        return res
+        sorted_items = sorted(res.items(), key=lambda item: item[1]["average"], reverse=True)
+        
+        return sorted_items[:top_n]
+    
+    def get_top_n_high_emotions(self, parsed_data) -> dict:
+        """
+        Parse top 3 by high score emotions from data
+        :param parsed_data: highs data from parse_avg_and_high_emotions()
+        :return: list of top 3 highest emotions in data with timestamps
+        """
+        sorted_data = sorted(parsed_data.items(), key=lambda x: x[1]['high'], reverse=True)
+        return sorted_data[:3]
 
-    def get_average_emotions(self) -> dict:
+    def parse_avg_and_high_emotions(self) -> dict:
         """Emotion type takes in either POSITIVE_EMOTIONS or NEGATIVE_EMOTIONS"""
 
         def emotion_level(emotion_average: float) -> str:
@@ -130,6 +139,7 @@ class Hume_Data:
                 return "overly "
 
         file_data = {}
+        highs = {} # hold highs for each emotion
 
         for idx, file in enumerate(self.raw_data):
             file_name = self.raw_data[idx]["file"]
@@ -141,20 +151,33 @@ class Hume_Data:
                 0
             ]  # each dict represents frames
             grouped_predictions = grouped_predictions["predictions"]
-            num_frames = len(grouped_predictions)
 
-            segment_emotion_data = {}
+            segment_emotion_data = {} # Average dict
             for idx, frame in enumerate(grouped_predictions):
+                timestamp = frame['time'] # For highs dictionary
+                num_frames = len(grouped_predictions)
                 emotions: list[dict] = frame["emotions"]
 
                 for idx, emotion in enumerate(emotions):
                     emotion_name = emotion["name"]
                     emotion_score = emotion["score"]
+
+                    # Add scores to average dict
                     if not segment_emotion_data.get(emotion_name, None):
                         segment_emotion_data[emotion_name] = emotion_score
                     else:
                         segment_emotion_data[emotion_name] += emotion_score
 
+                    # Update highs dict
+                    if not highs.get(emotion_name, None):
+                        highs[emotion_name] = {'high': 0, 'timestamp': timestamp, 'str_repr': ''}
+                    else:
+                        if emotion_score > highs[emotion_name]['high']:
+                            highs[emotion_name]['high'] = emotion_score
+                            highs[emotion_name]['str_repr'] = f"{emotion_level(emotion_score)}{emotion_name}"
+                            highs[emotion_name]['timestamp'] = timestamp
+
+            # Calculate averages from average dict
             for k_emotion, v_score in segment_emotion_data.items():
                 if v_score == "":
                     continue
@@ -164,10 +187,10 @@ class Hume_Data:
                     "str_repr": f"{emotion_level(average)}{k_emotion}",
                 }
             file_data[file_name] = segment_emotion_data
-        return file_data
+        return file_data, highs
 
 
 if __name__ == "__main__":
     # obj = Hume_Data("Sample-Outputs/sample-audio-and-face.json")
-    obj = Hume_Data("predictions.json")
+    obj = Hume_Data("Sample-Outputs/predictions.json")
     obj.wrapper()
