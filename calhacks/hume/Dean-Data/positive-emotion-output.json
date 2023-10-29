@@ -1,0 +1,393 @@
+{
+  "50-55-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.38154795865217844,
+        "str_repr": "none to slight Calmness"
+      }
+    ],
+    [
+      "Satisfaction",
+      {
+        "average": 0.31853126684824623,
+        "str_repr": "none to slight Satisfaction"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.29139824559291205,
+        "str_repr": "none to slight Concentration"
+      }
+    ]
+  ],
+  "35-40-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.5669085244337718,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.5646385937929154,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Satisfaction",
+      {
+        "average": 0.4325478414694468,
+        "str_repr": "Satisfaction"
+      }
+    ]
+  ],
+  "65-70-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.40361538032690686,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.3356750617424647,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.3330893337726593,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ],
+  "25-30-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.4295625736316045,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.4175311326980591,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Calmness",
+      {
+        "average": 0.40483604272206625,
+        "str_repr": "Calmness"
+      }
+    ]
+  ],
+  "0-5-Dean-Input.mp4": [
+    [
+      "Amusement",
+      {
+        "average": 0.3674997826417287,
+        "str_repr": "none to slight Amusement"
+      }
+    ],
+    [
+      "Joy",
+      {
+        "average": 0.34413663695255914,
+        "str_repr": "none to slight Joy"
+      }
+    ],
+    [
+      "Satisfaction",
+      {
+        "average": 0.3421129475037257,
+        "str_repr": "none to slight Satisfaction"
+      }
+    ]
+  ],
+  "55-60-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.45022011001904805,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.3423879285653432,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.2941386585434278,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ],
+  "40-45-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.34768281877040863,
+        "str_repr": "none to slight Calmness"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.2918611665566762,
+        "str_repr": "none to slight Interest"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.2818832288185755,
+        "str_repr": "none to slight Amusement"
+      }
+    ]
+  ],
+  "10-15-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.37970510721206663,
+        "str_repr": "none to slight Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.36426345507303876,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.3384965052207311,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ],
+  "15-20-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.5574969516268798,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.5483465929116521,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Satisfaction",
+      {
+        "average": 0.4043635640825544,
+        "str_repr": "Satisfaction"
+      }
+    ]
+  ],
+  "80-81.09-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.7429767921566963,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.7272306308150291,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Love",
+      {
+        "average": 0.4613533243536949,
+        "str_repr": "Love"
+      }
+    ]
+  ],
+  "45-50-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.42178277174631756,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.362208491563797,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.3143538614114126,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ],
+  "20-25-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.5926818499962488,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.5721830954154332,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.4434047649304072,
+        "str_repr": "Interest"
+      }
+    ]
+  ],
+  "75-80-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.43755792998350584,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.4374580732904948,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Joy",
+      {
+        "average": 0.43586373816315943,
+        "str_repr": "Joy"
+      }
+    ]
+  ],
+  "60-65-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.41328106125195824,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.34969496180613835,
+        "str_repr": "none to slight Interest"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.3458488677938779,
+        "str_repr": "none to slight Concentration"
+      }
+    ]
+  ],
+  "30-35-Dean-Input.mp4": [
+    [
+      "Joy",
+      {
+        "average": 0.5345467893140656,
+        "str_repr": "Joy"
+      }
+    ],
+    [
+      "Amusement",
+      {
+        "average": 0.5296598843165806,
+        "str_repr": "Amusement"
+      }
+    ],
+    [
+      "Satisfaction",
+      {
+        "average": 0.39500840646880014,
+        "str_repr": "none to slight Satisfaction"
+      }
+    ]
+  ],
+  "5-10-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.46923759778340657,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.3701392650604248,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.36259104311466217,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ],
+  "70-75-Dean-Input.mp4": [
+    [
+      "Calmness",
+      {
+        "average": 0.43300168414910634,
+        "str_repr": "Calmness"
+      }
+    ],
+    [
+      "Concentration",
+      {
+        "average": 0.3315213938554128,
+        "str_repr": "none to slight Concentration"
+      }
+    ],
+    [
+      "Interest",
+      {
+        "average": 0.3221650391817093,
+        "str_repr": "none to slight Interest"
+      }
+    ]
+  ]
+}

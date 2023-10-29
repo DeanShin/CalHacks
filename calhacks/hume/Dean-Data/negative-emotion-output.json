@@ -1,0 +1,393 @@
+{
+  "50-55-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.3012667506933212,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.2833071360985438,
+        "str_repr": "none to slight Tiredness"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.28094445417324704,
+        "str_repr": "none to slight Confusion"
+      }
+    ]
+  ],
+  "35-40-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.19342807258168856,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Awkwardness",
+      {
+        "average": 0.1656427229444186,
+        "str_repr": "none to slight Awkwardness"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.15048860336343448,
+        "str_repr": "none to slight Confusion"
+      }
+    ]
+  ],
+  "65-70-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.3453155174851418,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.3420819272597631,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.2590192586183548,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "25-30-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.23487356156110764,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.22567152976989746,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.18965795586506526,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "0-5-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.22478533883889515,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.22089531496167183,
+        "str_repr": "none to slight Tiredness"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.21788478419184684,
+        "str_repr": "none to slight Boredom"
+      }
+    ]
+  ],
+  "55-60-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.35281132260958353,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.28428062895933787,
+        "str_repr": "none to slight Tiredness"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.2812037994464239,
+        "str_repr": "none to slight Confusion"
+      }
+    ]
+  ],
+  "40-45-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.2943213095267614,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.28573860625425973,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.25750438769658407,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "10-15-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.3619707008202871,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.3306111623843511,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Doubt",
+      {
+        "average": 0.2534888426462809,
+        "str_repr": "none to slight Doubt"
+      }
+    ]
+  ],
+  "15-20-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.15884669870138168,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Awkwardness",
+      {
+        "average": 0.134819180305515,
+        "str_repr": "none to slight Awkwardness"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.1347107786153044,
+        "str_repr": "none to slight Boredom"
+      }
+    ]
+  ],
+  "80-81.09-Dean-Input.mp4": [
+    [
+      "Awkwardness",
+      {
+        "average": 0.1579197533428669,
+        "str_repr": "none to slight Awkwardness"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.1068376898765564,
+        "str_repr": "none to slight Tiredness"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.1050121383741498,
+        "str_repr": "none to slight Boredom"
+      }
+    ]
+  ],
+  "45-50-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.3949063628911972,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.3273965249458949,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.26826106806596123,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "20-25-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.14882114281256995,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Awkwardness",
+      {
+        "average": 0.1460638438661893,
+        "str_repr": "none to slight Awkwardness"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.1312050978342692,
+        "str_repr": "none to slight Boredom"
+      }
+    ]
+  ],
+  "75-80-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.3046858998445364,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.20985072364027685,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.2044595508621289,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "60-65-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.3307325929403305,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.3168104867140452,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.25221290389696754,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "30-35-Dean-Input.mp4": [
+    [
+      "Confusion",
+      {
+        "average": 0.1921625424708639,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Boredom",
+      {
+        "average": 0.19146486185491085,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Awkwardness",
+      {
+        "average": 0.17732193959610804,
+        "str_repr": "none to slight Awkwardness"
+      }
+    ]
+  ],
+  "5-10-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.34380332231521604,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.31913509368896487,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.23583775907754898,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ],
+  "70-75-Dean-Input.mp4": [
+    [
+      "Boredom",
+      {
+        "average": 0.34090113242467246,
+        "str_repr": "none to slight Boredom"
+      }
+    ],
+    [
+      "Confusion",
+      {
+        "average": 0.300041601061821,
+        "str_repr": "none to slight Confusion"
+      }
+    ],
+    [
+      "Tiredness",
+      {
+        "average": 0.257850976785024,
+        "str_repr": "none to slight Tiredness"
+      }
+    ]
+  ]
+}

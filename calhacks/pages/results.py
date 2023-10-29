@@ -6,6 +6,8 @@ import reflex as rx
 import re
 import asyncio
 
+from ..hume import dean_test_data
+
 class ResultsState(State):
     """The app state."""
     # The images to show.
@@ -56,14 +58,16 @@ class ResultsState(State):
                 self.video_data[file.filename][2]
             )
 
+
     async def set_top_emotions(self, file):
         await asyncio.sleep(3.1)
         async with self:
             self.video_data[file.filename] = (
                 self.video_data[file.filename][0],
-                ["Happiness", "Sadness", "Melancholy"],
+                dean_test_data.get_dean_top_emotions(),
                 self.video_data[file.filename][2]
             )
+            
 
 
     async def set_key_moments(self, file):
