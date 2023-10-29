@@ -24,20 +24,21 @@ class SetupState(State):
 @rx.page()
 def setup():
     return rx.grid(
+        rx.box(),
         rx.heading("How it works", size="xl", text_align="center"),
         rx.grid(
             rx.card(
                 rx.text(
-                    "Get interview questions specifically asked in your industry for the most effective practice."),
+                    "Get interview questions specifically asked in your industry."),
                 header=rx.heading(
-                    "Fill out your industry", size="lg"
+                    "Choose your industry", size="lg"
                 ),
             ),
             rx.card(
                 rx.text(
                     "Turn your camera on and practice answering the provided questions as if you were in an actual interview."),
                 header=rx.heading(
-                    "Practice your interview", size="lg"
+                    "Practice", size="lg"
                 )
             ),
             rx.card(
@@ -71,8 +72,10 @@ def setup():
                 on_click=SetupState.on_pressed_ready
             ),
         ),
-        grid_template_rows = "200px auto 200px 100px",
+        rx.box(),
+        grid_template_rows = "1fr 3fr 5fr 1fr 1fr 1fr",
         align_items = "center",
         justify_content = "center",
-        margin = "32px",
+        padding="32px",
+        height="100dvh"
     )

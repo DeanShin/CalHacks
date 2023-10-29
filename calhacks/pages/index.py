@@ -19,7 +19,6 @@ def index() -> rx.Component:
         bg='white',
         width='100dvw',
         height='100dvh',
-        align_items='center',
-        justify_content='center',
-        grid_template_rows='1fr 30% 20% 10% 20% 1fr'
+        align_items="end",
+        grid_template_rows='1fr 20% 10% 10% 20% 2fr'
     )
