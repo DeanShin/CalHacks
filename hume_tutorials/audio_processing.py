@@ -70,6 +70,7 @@ def wav_to_audio_transcript() -> str:
 
 if __name__ == "__main__":
     print(f"{current_directory=}")
-    convert_video_to_wav("Hume-input-video.mp4")
-    res = wav_to_audio_transcript()
-    print(res)
+    convert_webm_to_mp4("question_4.webm")
+    # convert_video_to_wav("Hume-input-video.mp4")
+    # res = wav_to_audio_transcript()
+    # print(res)
